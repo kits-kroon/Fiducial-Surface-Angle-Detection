@@ -1,0 +1,15 @@
+﻿Build started 19/04/2016 6:49:23 PM.
+     1>Project "C:\Users\Jake\Desktop\Fiducial Tracking\OpenCV_Fiducial\OpenCV_Fiducial\OpenCV_Fiducial.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\opencv-3.0\build\install\x86\vc12\..\..\include" /AI"C:\opencv-3.0\build\install\x86\vc12\..\..\include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Main.cpp
+         Main.cpp
+     1>c:\users\jake\desktop\fiducial tracking\opencv_fiducial\opencv_fiducial\main.cpp(132): warning C4305: 'initializing' : truncation from 'double' to 'float'
+     1>c:\users\jake\desktop\fiducial tracking\opencv_fiducial\opencv_fiducial\main.cpp(156): warning C4101: 'theta' : unreferenced local variable
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Jake\Desktop\Fiducial Tracking\OpenCV_Fiducial\Debug\OpenCV_Fiducial.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\opencv-3.0\build\install\x86\vc12\lib" /LIBPATH:"C:\opencv-3.0\build\install\x86\vc12\lib" opencv_aruco310d.lib opencv_bgsegm310d.lib opencv_bioinspired310d.lib opencv_calib3d310d.lib opencv_ccalib310d.lib opencv_core310d.lib opencv_datasets310d.lib opencv_dnn310d.lib opencv_dpm310d.lib opencv_face310d.lib opencv_features2d310d.lib opencv_flann310d.lib opencv_fuzzy310d.lib opencv_highgui310d.lib opencv_imgcodecs310d.lib opencv_imgproc310d.lib opencv_line_descriptor310d.lib opencv_ml310d.lib opencv_objdetect310d.lib opencv_optflow310d.lib opencv_photo310d.lib opencv_plot310d.lib opencv_reg310d.lib opencv_rgbd310d.lib opencv_saliency310d.lib opencv_shape310d.lib opencv_stereo310d.lib opencv_stitching310d.lib opencv_structured_light310d.lib opencv_superres310d.lib opencv_surface_matching310d.lib opencv_text310d.lib opencv_tracking310d.lib opencv_ts310d.lib opencv_video310d.lib opencv_videoio310d.lib opencv_videostab310d.lib opencv_xfeatures2d310d.lib opencv_ximgproc310d.lib opencv_xobjdetect310d.lib opencv_xphoto310d.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Jake\Desktop\Fiducial Tracking\OpenCV_Fiducial\Debug\OpenCV_Fiducial.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Jake\Desktop\Fiducial Tracking\OpenCV_Fiducial\Debug\OpenCV_Fiducial.lib" /MACHINE:X86 Debug\Main.obj
+         OpenCV_Fiducial.vcxproj -> C:\Users\Jake\Desktop\Fiducial Tracking\OpenCV_Fiducial\Debug\OpenCV_Fiducial.exe
+     1>Done Building Project "C:\Users\Jake\Desktop\Fiducial Tracking\OpenCV_Fiducial\OpenCV_Fiducial\OpenCV_Fiducial.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:01.92
