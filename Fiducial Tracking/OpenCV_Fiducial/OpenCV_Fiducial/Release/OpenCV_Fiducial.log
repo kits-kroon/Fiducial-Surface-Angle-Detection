@@ -1,0 +1,12 @@
+﻿Build started 19/04/2016 10:27:41 PM.
+     1>Project "C:\Users\Jake\Desktop\Fiducial Tracking\OpenCV_Fiducial\OpenCV_Fiducial\OpenCV_Fiducial.vcxproj" on node 2 (ClCompile target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"C:\opencv-3.0\build\install\x86\vc12\..\..\include" /AI"C:\opencv-3.0\build\install\x86\vc12\..\..\include" /Zi /nologo /W3 /WX- /sdl /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Main.cpp
+         Main.cpp
+     1>Main.cpp(132): warning C4305: 'initializing' : truncation from 'double' to 'float'
+     1>Main.cpp(156): warning C4101: 'theta' : unreferenced local variable
+     1>Done Building Project "C:\Users\Jake\Desktop\Fiducial Tracking\OpenCV_Fiducial\OpenCV_Fiducial\OpenCV_Fiducial.vcxproj" (ClCompile target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:00.59

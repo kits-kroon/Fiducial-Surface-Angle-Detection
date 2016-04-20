@@ -39,31 +39,48 @@ the use of this software, even if advised of the possibility of such damage.
 #include <opencv2/highgui.hpp>
 #include <opencv2/aruco.hpp>
 #include <iostream>
+#include <fstream>
 
 using namespace cv;
 using namespace std;
 
 void createFiducial();
-void detectMarker();
+void detectMarker(bool checkWrite);
+void writeToFile(double mean, double stdDev);
+void doStatistics(vector<double> rvecs, void(*wf)(double mean, double stdDev));
 
 int main(int argc, char *argv[]) {
 
 	int choice;
+	bool flag = true;
 
-	cout << "1. create Fiducial Marker" << endl;
-	cout << "2. detect Fiducial Marker" << endl;
-	cout << "Enter your choice: " << endl;
-	cin >> choice;
+	while (flag){
+		cout << "1. Create fiducial marker" << endl;
+		cout << "2. Detect fiducial marker" << endl;
+		cout << "3. Detect fiducial and record statistics (std dev & mean) 50 samples" << endl;
+		cout << "3. Exit the program      " << endl;
+		cout << "Enter your choice: " << endl;
+		cin >> choice;
 
-	switch (choice){
-	case 1:  createFiducial();
-		break;
-	case 2:
-		detectMarker();
-		break;
-	default:
-		cout << "Bad Choice" << endl;
+		switch (choice){
+		case 1:  createFiducial();
+			break;
+		case 2:
+			detectMarker(false);
+			break;
+		case 3: 
+			detectMarker(true);
+			break;
+		case 4:
+			flag = false;
+			cout << "Now exiting..." << endl;
+			break;
+		default:
+			cout << "Bad Choice" << endl;
+		}
 	}
+
+
 	return 0;
 }
 
@@ -72,7 +89,7 @@ void createFiducial()
 	auto dictionaryId = 10;
 	auto markerId = 23;
 	auto borderBits = 1;
-	auto markerSize = 600;
+	auto markerSize = 150;
 	auto showImage = false;
 	String out = "fiducial.png";
 
@@ -126,10 +143,10 @@ static bool readDetectorParameters(string filename, Ptr<aruco::DetectorParameter
 	return true;
 }
 
-void detectMarker()
+void detectMarker(bool checkWrite)
 {
 	auto dictionaryId = 10;
-	float markerLength = 0.16;
+	float markerLength = 0.04;
 
 	auto detectorParams = aruco::DetectorParameters::create();
 
@@ -154,6 +171,9 @@ void detectMarker()
 	auto totalIterations = 0;
 	
 	double theta;
+	void (*wf)(double mean, double stdDev);
+	wf = &writeToFile;
+	vector<double> angles;
 
 	while (inputVideo.grab()) {
 		Mat image, imageCopy;
@@ -171,14 +191,6 @@ void detectMarker()
 			aruco::estimatePoseSingleMarkers(corners, markerLength, camMatrix, distCoeffs, rvecs,
 			tvecs);
 
-		/*double currentTime = (double(getTickCount()) - tick) / getTickFrequency();
-		totalTime += currentTime;
-		totalIterations++;
-		if (totalIterations % 30 == 0) {
-			//cout << "Detection Time = " << currentTime * 1000 << " ms "
-			//	<< "(Mean = " << 1000 * totalTime / double(totalIterations) << " ms)" << endl;
-		} */
-
 		// draw results
 		image.copyTo(imageCopy);
 		if (ids.size() > 0) {
@@ -187,7 +199,14 @@ void detectMarker()
 			for (unsigned int i = 0; i < ids.size(); i++) {
 				aruco::drawAxis(imageCopy, camMatrix, distCoeffs, rvecs[i], tvecs[i],
 					markerLength * 0.5f);
-				cout << "y: " << rvecs[i][2] * 57.2958 << "x :" << rvecs[i][0] * 57.2958 << endl;
+				cout << "y: " << rvecs[i][2] * 57.2958 << " x :" << rvecs[i][0] * 57.2958 << " z: " << rvecs[i][1] * 57.2958 << endl;
+				angles.push_back(rvecs[i][2]);
+			}
+
+			if (angles.size() == 50 && checkWrite == true)
+			{
+				doStatistics(angles, wf);
+				break;
 			}
 		}
 
@@ -195,4 +214,38 @@ void detectMarker()
 		auto key = char(waitKey(waitTime));
 		if (key == 27) break;
 	}
+}
+
+void doStatistics(vector<double> rvecs, void (*wf)(double mean, double stdDev))
+{
+	double mean = 0;
+	double stdDev = 0;
+	double stdDevCollect = 0;
+
+	for (auto i = 0; i < 50; i++)
+	{
+		mean += rvecs[i] * 57.2958;
+	}
+
+	mean = mean / 50;
+
+	for (auto i = 0; i < 50; i++)
+	{
+		stdDevCollect = pow(((rvecs[i] * 57.2958) - mean), 2);
+		stdDev += stdDevCollect;
+	}
+
+	stdDev = sqrt(stdDev / 50);
+
+	writeToFile(mean, stdDev);
+}
+
+void writeToFile(double mean, double stdDev)
+{
+	ofstream oFile;
+	oFile.open("testData.txt", ios_base::app);
+
+	oFile << "mean: " << mean << "  " << "std dev: " << stdDev << endl;
+
+	oFile.close();
 }
